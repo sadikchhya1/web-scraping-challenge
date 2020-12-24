@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup as bs
 import time
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
+import pymongo
 
 def scrape_info():
     browser = init_browser()
@@ -58,7 +59,7 @@ def hemispheres(browser):
     hemispheres = []
     links = browser.find_by_css('a.itemLink h3')
     for i in range(len(links)):
-    hemisphere = {}
+ hemisphere = {}
     hemisphere['title'] = browser.find_by_css('a.itemLink h3')[i].text
     browser.find_by_css('a.itemLink h3')[i].click()    
     hemisphere['url'] = browser.links.find_by_partial_text('Sample')['href']

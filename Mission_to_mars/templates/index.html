@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style='background-color: white;'>
+    
+    <div class="jumbotron text-center text-white bg-secondary p-4">
+        <h1 class="display-3">Hello, Mars!</h1>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new data</a>
+        </p>
+        <hr class="my-2">
+        <h1 class="display-4"> {{ mars.title }}</h1>
+        <p> {{ mars.paragraph }} </p>
+      </div>
+
+      <div class="row">
+          <div class="col-md-6"><img src="{{ mars.image }}" alt="" class="w-100"></div>
+          <div class="col-md-6">{{ mars.table | safe }}</div>
+      </div>      
+
+    <div class="row">
+        {% for obj in mars.hemispheres %}
+            <div class="col-md-3">
+                <h5 class="text-center"> {{ obj.title }} </h5>
+                <img src="{{ obj.url }}" alt="" class="w-100">
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -11,12 +11,13 @@ def scrape_info():
     browser = init_browser()
     news_title, news_p = mars_news(browser)
     mars_data = {
-        title: news_title,
-        paragraph: news_p,
-        image: featured_image(browser),
-        table: mars_facts(),
-        hemispheres: hemispheres(browser)
+        'title': news_title,
+        'paragraph': news_p,
+        'image': featured_image(browser),
+        'table': mars_facts(),
+        'hemispheres': hemispheres(browser)
     }
+    browser.quit()
     return mars_data
     
 def init_browser():
@@ -30,7 +31,7 @@ def mars_news(browser):
     time.sleep(1)
     html = browser.html
     soup = bs(html, "html.parser")
-    news_title = soup.find('div', class_='content_title').text
+    news_title = browser.find_by_css('div.content_title a').text
     news_p = soup.find('div', class_='article_teaser_body').text
     return news_title, news_p
 
@@ -59,11 +60,11 @@ def hemispheres(browser):
     hemispheres = []
     links = browser.find_by_css('a.itemLink h3')
     for i in range(len(links)):
- hemisphere = {}
-    hemisphere['title'] = browser.find_by_css('a.itemLink h3')[i].text
-    browser.find_by_css('a.itemLink h3')[i].click()    
-    hemisphere['url'] = browser.links.find_by_partial_text('Sample')['href']
-    hemispheres.append(hemisphere)
-    browser.back()
+        hemisphere = {}
+        hemisphere['title'] = browser.find_by_css('a.itemLink h3')[i].text
+        browser.find_by_css('a.itemLink h3')[i].click()    
+        hemisphere['url'] = browser.links.find_by_partial_text('Sample')['href']
+        hemispheres.append(hemisphere)
+        browser.back()
     return hemispheres
 
